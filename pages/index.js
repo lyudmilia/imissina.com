@@ -283,7 +283,7 @@ function CommonFooter(props) {
     return <footer>
         <a href={props.channelLink}>Ninomae Ina&apos;nis Ch. hololive-EN</a> <br />
         <small>
-            Not affiliated with Ninomae Ina'nis or hololive - Past stream data
+            Not affiliated with Ninomae Ina&apos;nis or hololive - Past stream data
             provided by Holodex - <a href="https://github.com/lyudmilia/imissina.com">Source</a>
         </small>
     </footer>

@@ -1,5 +1,5 @@
 {
-  "name": "imf",
+  "name": "imi",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -20,5 +20,18 @@
   "devDependencies": {
     "eslint": "7",
     "eslint-config-next": "12.0.4"
-  }
+  },
+  "description": "In .env or the actual environment:",
+  "version": "1.0.0",
+  "main": "imagesets.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyudmilia/imissina.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lyudmilia/imissina.com/issues"
+  },
+  "homepage": "https://github.com/lyudmilia/imissina.com#readme"
 }

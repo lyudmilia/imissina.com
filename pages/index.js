@@ -53,39 +53,6 @@ function scrambledImageSet(state) {
     }
 }
 
-// This function is now pretty confusing with all the extra data sources
-// so here's a chart to try and explain how it works. Time proceeds
-// downwards. The stream info API does something similar, but waits
-// for the Twitter update to finish before sending a response. 
-//
-//                              +---------------+ +----------------+
-// Still valid------------------+Get cached data| |Get past stream |
-//      |                       |from DB        | |from holodex    |
-//      |                       +-------+-------+ +--------+-------+
-//      |                               |                  |
-//      |                             Stale?               |
-//      |     +------------+            |                  |
-//      |   +-+ Revalidate |<--Members?-+                  |
-//      |   | | against YT |            |                  |
-//      |   | | API        |            |                  |
-//      |   | ++-----------+            v                  |
-//      |   |  |                +---------------+          |
-//      |   |  |    Dead/       |Check YouTube  |          |
-//      |   |  +----finished--->|/live endpoint |          |
-//      |   |                   +-------+--+----+          |           +--------------------+
-//      |   |                           |  |               |           |Search Twitter      |
-//      |   |                           |  +--No stream----+---------> |for members streams |
-//      |   |                           v                  |           |/premieres          |
-//      |   |                   +---------------+          |           +---------+----------+
-//      +---+------------------>|Send response  |<---------+                     |
-//                              |to client      |                                |
-//                              +---------------+                                |
-//                                                                               |
-//                              +---------------+                                |
-//                              |First refresh  |<-------------------------------+
-//                              |by client JS   |
-//                              +---------------+
-//
 export async function getServerSideProps({ req, res, query }) {
     const ds = await import("../server/data_sources")
     const coordinator = await ds.getDatabase()
@@ -194,7 +161,7 @@ function StreamInfo(props) {
         thumb = props.info.thumbnail
     } else {
         text = "Current Stream"
-        link = <b>NOTHING UUUUUUUuuuuuu</b>
+        link = <b>Waiting for Ina to come back...</b>
     }
 
     const formats = {
@@ -211,7 +178,7 @@ function StreamInfo(props) {
                     : null}
             </p>
             <p>{link}</p>
-            {props.info?.isMembersOnly ? <p>(for Faunatics only!)</p> : null}
+            {props.info?.isMembersOnly ? <p>(for Otakos only!)</p> : null}
         </div>
         {thumb ? <img src={thumb} alt="thumbnail" width={120} /> : null}
     </div>
@@ -219,7 +186,7 @@ function StreamInfo(props) {
 
 function PastStreamCounter(props) {
     const formats = {
-        immediate: "", forFuture: "", forPast: `%@ without Fauna`,
+        immediate: "", forFuture: "", forPast: `%@ without Ina`,
         days: (days) => (days > 1 ? `${days} days` : `${days} day`),
         hours: (hours) => (hours > 1 ? `${hours} hours` : `${hours} hour`),
         minutes: (minutes) => (minutes > 1 ? `${minutes} minutes` : `${minutes} minute`),
@@ -235,7 +202,7 @@ function CommonMetadata() {
     return <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="theme-color" content="#c3f0ce" />
-        <meta content="I MISS FAUNA" property="og:title" />
+        <meta content="I MISS INA" property="og:title" />
         <meta name="twitter:card" content="summary_large_image" />
     </Head>
 }
@@ -254,12 +221,12 @@ function LiveOrStartingSoonLayout(props) {
 
     return <div className="comfy">
         <Head>
-            <title>{pageEmoji} I MISS FAUNA</title>
+            <title>{pageEmoji} I MISS INA</title>
             <meta content={createEmbedDescription(props.status, props.streamInfo)} property="og:description" />
             <meta content={`${props.absolutePrefix}/${image}`} property="og:image" />
         </Head>
 
-        <h1>{"I Don't Miss Fauna"}</h1>
+        <h1>{"INA IS LIVE RIGHT NOW"}</h1>
         <StreamInfo status={props.status} info={props.streamInfo} />
         <img className={styles.bigImage} src={`${props.absolutePrefix}/${image}`} alt="wah" 
             onClick={() => setImage(selectNextImage(props.usedImageSet, image))} />
@@ -277,7 +244,7 @@ function NoStreamLayout(props) {
 
     return <div className="miss-her">
         <Head>
-            <title>I MISS FAUNA</title>
+            <title>I MISS INA</title>
             <meta content={createEmbedDescription(props.status, props.streamInfo)} property="og:description" />
             <meta content={`${props.absolutePrefix}/${image}`} property="og:image" />
         </Head>
@@ -299,13 +266,13 @@ function ErrorLayout(props) {
 
     return <div className="error">
         <Head>
-            <title>I MISS FAUNA</title>
+            <title>I MISS INA</title>
             <meta content={`${props.absolutePrefix}/${image}`} property="og:image" />
         </Head>
         <img className={styles.bigImage} src={`${props.absolutePrefix}/${image}`} alt="wah" 
             onClick={() => setImage(selectNextImage(props.usedImageSet, image))} />
         <div className={`${styles.streamInfo} ${styles.streamInfoError}`}>
-            <p>There was a problem checking stream status. <a href={props.channelLink}>{"You can check Fauna's channel yourself"}</a>!</p>
+            <p>There was a problem checking stream status. <a href={props.channelLink}>{"You can check Ina's channel yourself"}</a>!</p>
         </div>
         {pastStreamCounter}
         <CommonFooter channelLink={props.channelLink} actRefreshNow={props.actRefreshNow} />
@@ -314,10 +281,10 @@ function ErrorLayout(props) {
 
 function CommonFooter(props) {
     return <footer>
-        <a href={props.channelLink}>Ceres Fauna Ch. hololive-EN</a> <br />
+        <a href={props.channelLink}>Ninomae Ina'nis Ch. hololive-EN</a> <br />
         <small>
-            Not affiliated with Fauna or hololive - Past stream data
-            provided by Holodex - <a href="https://github.com/saplinganon/imissfauna.com">Source</a>
+            Not affiliated with Ninomae Ina'nis or hololive - Past stream data
+            provided by Holodex - <a href="https://github.com/lyudmilia/imissina.com">Source</a>
         </small>
     </footer>
 }

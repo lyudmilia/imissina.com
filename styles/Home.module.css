@@ -31,8 +31,8 @@
 }
 
 .streamInfo {
-    background: linear-gradient(rgba(140, 247, 172, 0.3) 0%, rgb(140, 247, 172) 100%);
-    border: 1px solid rgb(117, 207, 137);
+    background: linear-gradient(rgba(252, 232, 207, 0.3) 0%, rgb(242, 154, 48) 100%);
+    border: 1px solid rgb(242, 154, 48);
     border-radius: 6px;
     padding: 0.8rem;
     margin: 2rem auto;
@@ -48,7 +48,7 @@
 .streamInfo img {
     margin-left: 0.8rem;
     border-radius: 3px;
-    border: 1px solid rgb(117, 207, 137);
+    border: 1px solid rgb(242, 154, 48);
 }
 
 .streamInfo a {
@@ -68,17 +68,17 @@
 .streamInfoHead {
     font-size: 80%;
     font-weight: bold;
-    color: rgb(66, 105, 90);
+    color: rgb(87, 80, 104);
     text-transform: uppercase;
 }
 
 .streamInfoLive, .streamInfoLive img {
-    background: rgb(243, 78, 78);
+    background: rgb(242, 154, 48);
     border-color: #c70707;
 }
 
 .streamInfoLive .streamInfoHead {
-    color: rgb(255, 240, 240);
+    color: rgb(242, 154, 48);
 }
 
 .streamInfoError {
@@ -96,8 +96,8 @@
 }
 
 .pastStreamInfo {
-    background: rgb(174, 250, 197);
-    border-color: rgb(130, 206, 147);
+    background: rgb(242, 154, 48);
+    border-color: rgb(242, 154, 48);
     justify-content: center;
 }
 

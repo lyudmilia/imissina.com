@@ -1,6 +1,6 @@
 The code in this repository is licensed under the MIT license.
 
-Copyright (c) 2021 imissfauna.com contributors
+Copyright (c) 2021 imissina.com contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

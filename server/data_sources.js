@@ -68,7 +68,7 @@ export async function getCollabStream() {
 
     const { error: collabStreamError, result: collabStreamResult } = collabStreamVal
     if (collabStreamError) {
-        console.warn("paststream poll returned error:", collabStreamError)
+        console.warn("collab stream poll returned error:", collabStreamError)
         // Error is non-blocking. Gracefully fall back to not displaying things related to past stream
         return null
     }

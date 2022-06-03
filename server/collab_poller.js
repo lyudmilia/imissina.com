@@ -19,7 +19,7 @@ async function fetchCollabstreamPage(channelID) {
 
 function extractCollabstreamInfo(fromPageContent) {
     const lastStream = fromPageContent.items.find(e => {
-        return e.status === 'past' &&
+        return e.status === 'upcoming' || e.status ==='live' || e.status ==='past' &&
             e.type === 'stream' &&
             e.topic_id !== 'shorts' &&
             e.duration >= 600 && 

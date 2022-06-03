@@ -1,5 +1,6 @@
 import { pollLivestreamStatus, pollLivestreamStatusDummy } from "../server/livestream_poller" 
 import { pollPaststreamStatus } from "../server/paststream_poller"
+import { pollCollabstreamStatus } from "../server/collab_poller"
 import { STREAM_STATUS, STREAM_TYPE } from "../common/enums"
 import { findLinksFromTwitter, getStreamInfos } from "../server/twitter_stream_finder"
 
@@ -60,6 +61,19 @@ export async function getPastStream() {
     }
 
     return pastStreamResult
+}
+
+export async function getCollabStream() {
+    const collabStreamVal = await pollCollabstreamStatus(process.env.WATCH_CHANNEL_ID)
+
+    const { error: collabStreamError, result: collabStreamResult } = collabStreamVal
+    if (collabStreamError) {
+        console.warn("paststream poll returned error:", collabStreamError)
+        // Error is non-blocking. Gracefully fall back to not displaying things related to past stream
+        return null
+    }
+
+    return collabStreamResult
 }
 
 export async function getLiveStreamData(mockKey) {    

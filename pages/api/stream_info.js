@@ -1,5 +1,5 @@
 import { STREAM_STATUS, STREAM_TYPE } from "../../common/enums"
-import { getDatabase, getKnownStreamData, getLiveStreamData, getPastStream, findExtraStreams } from "../../server/data_sources"
+import { getDatabase, getKnownStreamData, getLiveStreamData, getPastStream, getCollabStream, findExtraStreams } from "../../server/data_sources"
 
 function chooseBest(streams) {
     if (!streams) {
@@ -39,6 +39,7 @@ export default async function handler(req, res) {
 
     let useStreamInfo = await getKnownStreamData(coordinator)
     const pastStreamPromise = getPastStream()
+    const collabStreamPromise = getCollabStream()
     if (!useStreamInfo) {
         const { result, error } = await getLiveStreamData(req.query.mock)
         if (error) {
@@ -68,11 +69,19 @@ export default async function handler(req, res) {
         return
     }
 
+    const collabResult = await collabStreamPromise
+    if (!collabResult && !useStreamInfo) {
+        res.status(200).json({ error: true, result: null })
+        await coordinator.teardown()
+        return
+    }
+
     let responseValue = {
         error: false, 
         result: {
             ytStreamData: null,
             pastStreamData: null,
+            collabStreamData: null,
         }
     }
 
@@ -92,6 +101,10 @@ export default async function handler(req, res) {
 
     if (pastResult) {
         responseValue.result.pastStreamData = pastResult
+    }
+
+    else if (collabResult) {
+        responseValue.result.collabStreamData = collabResult
     }
 
     res.status(200).json(responseValue)
